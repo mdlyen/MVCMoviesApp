@@ -191,6 +191,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\GenerateMoviesDatabase.sql" />
     <Content Include="App_Data\movies.mdf" />
     <Content Include="App_Data\movies_log.ldf">
       <DependentUpon>movies.mdf</DependentUpon>
