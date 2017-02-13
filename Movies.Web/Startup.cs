@@ -8,7 +8,7 @@ namespace Movies.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            
         }
     }
 }
