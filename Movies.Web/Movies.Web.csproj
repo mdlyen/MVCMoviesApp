@@ -179,6 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTO\DtoFactories.cs" />
     <Compile Include="DTO\FilmDto.cs" />

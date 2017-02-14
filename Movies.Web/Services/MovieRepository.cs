@@ -27,7 +27,7 @@ namespace Movies.Web.Services
             return result;
         }
 
-        public IList<FilmDto> GetAllFilmDtos()
+        public IQueryable<FilmDto> GetAllFilmDtos()
         {
             //TODO: Replace with Automapper.
             var returnVar = new List<FilmDto>();
@@ -38,7 +38,7 @@ namespace Movies.Web.Services
                 returnVar.Add(DtoFactories.MapFilmtoFilmDto(film));
             }
 
-            return returnVar;
+            return returnVar.AsQueryable();
         }
 
         public void Remove(int id)
