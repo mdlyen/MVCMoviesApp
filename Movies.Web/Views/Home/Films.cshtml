@@ -1,0 +1,23 @@
+﻿@model IList<Movies.Web.DTO.FilmDto>
+@{
+    ViewBag.Title = "Films Page";
+}
+
+<div style="margin-top:25px"></div>
+
+<table style="width: 100%;">
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Director</th>
+    <tbody>
+
+@foreach (var f in Model)
+{
+    <tr>
+        <td>@f.Title</td>
+        <td>@f.ReleaseYear</td>
+        <td>@f.Director</td>
+    </tr>    
+}
+</table>
