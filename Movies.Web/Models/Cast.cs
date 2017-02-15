@@ -18,6 +18,6 @@ namespace Movies.Web.Models
 
         public virtual Actor Actor { get; set; }
 
-        public virtual DTO.FilmDto Film { get; set; }
+        public virtual Film Film { get; set; }
     }
 }

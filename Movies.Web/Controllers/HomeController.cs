@@ -14,7 +14,7 @@ namespace Movies.Web.Controllers
         public ActionResult Films()
         {
             var rep = new MovieRepository();
-            return View(rep.GetAllFilmDtos());
+            return View(rep.GetAllFilmDTOs());
         }
     }
 }

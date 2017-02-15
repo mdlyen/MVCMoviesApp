@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using Movies.Web.Controllers.api;
+using Newtonsoft.Json.Serialization;
 
 namespace Movies.Web
 {
@@ -9,16 +11,15 @@ namespace Movies.Web
         {
             // Web API configuration and services
             config.Formatters.Clear();
-            config.Formatters.Add(new JsonMediaTypeFormatter());
+
+            // Add json formatter using camel case instead of Pascal case.
+            config.Formatters.Add(new JsonMediaTypeFormatter
+            {
+                SerializerSettings = {ContractResolver = new CamelCasePropertyNamesContractResolver()}
+            });
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
         }
     }
 }

@@ -181,8 +181,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DTO\DtoFactories.cs" />
-    <Compile Include="DTO\FilmDto.cs" />
+    <Compile Include="DTO\DTOFactory.cs" />
+    <Compile Include="DTO\FilmDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

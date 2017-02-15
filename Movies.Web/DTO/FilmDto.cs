@@ -1,6 +1,8 @@
+using System.Dynamic;
+
 namespace Movies.Web.DTO
 {
-    public class FilmDto
+    public class FilmDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }

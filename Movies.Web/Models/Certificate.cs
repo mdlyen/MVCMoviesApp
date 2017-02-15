@@ -10,7 +10,7 @@ namespace Movies.Web.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Certificate()
         {
-            Films = new HashSet<DTO.FilmDto>();
+            Films = new HashSet<Film>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -20,6 +20,6 @@ namespace Movies.Web.Models
         public string Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DTO.FilmDto> Films { get; set; }
+        public virtual ICollection<Film> Films { get; set; }
     }
 }

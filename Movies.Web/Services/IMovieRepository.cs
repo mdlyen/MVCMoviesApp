@@ -10,7 +10,7 @@ namespace Movies.Web.Services
         void Add(Film f);
         void Edit(Film f);
         Film FindById(int id);
-        IQueryable<FilmDto> GetAllFilmDtos();
+        IEnumerable<FilmDTO> GetAllFilmDTOs();
         void Remove(int id);
     }
 }

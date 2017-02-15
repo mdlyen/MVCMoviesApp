@@ -3,12 +3,12 @@ using Movies.Web.Shared;
 
 namespace Movies.Web.DTO
 {
-    public static class DtoFactories
+    public class DTOFactory
     {
-        public static FilmDto MapFilmtoFilmDto(Film film)
+        public FilmDTO Map(Film film)
         {
             //TODO: Replace with Automapper.
-            return new FilmDto
+            return new FilmDTO
             {
                 Id = film.Id,
                 Title = film.Title,

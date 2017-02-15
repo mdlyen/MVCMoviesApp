@@ -9,6 +9,7 @@ namespace Movies.Web.Services
     public class MovieRepository : IMovieRepository
     {
         private readonly MovieDbContext _dbContext = new MovieDbContext();
+        private readonly DTOFactory _dtoFactory = new DTOFactory();
 
         public void Add(Film f)
         {
@@ -27,18 +28,17 @@ namespace Movies.Web.Services
             return result;
         }
 
-        public IQueryable<FilmDto> GetAllFilmDtos()
+        public IEnumerable<FilmDTO> GetAllFilmDTOs()
         {
             //TODO: Replace with Automapper.
-            var returnVar = new List<FilmDto>();
+            var returnVar = new List<FilmDTO>();
 
-            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var film in _dbContext.Films.OrderBy(x=>x.Title))
             {
-                returnVar.Add(DtoFactories.MapFilmtoFilmDto(film));
+                returnVar.Add(_dtoFactory.Map(film));
             }
 
-            return returnVar.AsQueryable();
+            return returnVar;
         }
 
         public void Remove(int id)
