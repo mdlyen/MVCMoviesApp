@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using Movies.Web.Controllers.api;
 using Movies.Web.Services;
 
 namespace Movies.Web.Controllers
@@ -13,8 +14,8 @@ namespace Movies.Web.Controllers
 
         public ActionResult Films()
         {
-            var rep = new MovieRepository();
-            return View(rep.GetAllFilmDTOs());
+            var filmAPI = new FilmsController();
+            return View(filmAPI.GetFilms());
         }
     }
 }
