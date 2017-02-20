@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 
 // TODO: Move to a Movies.Domain class library.

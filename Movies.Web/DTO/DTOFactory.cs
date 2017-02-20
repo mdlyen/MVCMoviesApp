@@ -3,7 +3,7 @@ using Movies.Web.Shared;
 
 namespace Movies.Web.DTO
 {
-    public class DTOFactory
+    public class DTOFactory : IDTOFactory
     {
         public FilmDTO Map(Film film)
         {

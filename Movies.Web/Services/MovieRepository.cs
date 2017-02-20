@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Movies.Web.DTO;
 using Movies.Web.Models;
 
@@ -8,32 +9,21 @@ namespace Movies.Web.Services
 {
     public class MovieRepository : IMovieRepository
     {
-        private readonly MovieDbContext _dbContext = new MovieDbContext();
-        private readonly DTOFactory _dtoFactory = new DTOFactory();
+        private readonly IDbSession _dbSession;
+        private readonly IDTOFactory _dtoFactory;
 
-        public void Add(Film f)
+        public MovieRepository(IDbSession dbSession, IDTOFactory dtoFactory)
         {
-            _dbContext.Films.Add(f);
-            _dbContext.SaveChanges();
+            _dbSession = dbSession;
+            _dtoFactory = dtoFactory;
         }
 
-        public void Edit(Film f)
+        public IEnumerable<FilmDTO> GetAllFilms()
         {
-            _dbContext.Entry(f).State = EntityState.Modified;
-        }
-
-        public Film FindById(int id)
-        {
-            var result = (from f in _dbContext.Films where f.Id == id select f).FirstOrDefault();
-            return result;
-        }
-
-        public IEnumerable<FilmDTO> GetAllFilmDTOs()
-        {
-            //TODO: Replace with Automapper.
             var returnVar = new List<FilmDTO>();
+            var films = _dbSession.Set<Film>();
 
-            foreach (var film in _dbContext.Films.OrderBy(x=>x.Title))
+            foreach (var film in films)
             {
                 returnVar.Add(_dtoFactory.Map(film));
             }
@@ -41,14 +31,9 @@ namespace Movies.Web.Services
             return returnVar;
         }
 
-        public void Remove(int id)
+        public IEnumerable<T> GetAll<T>() where T:class
         {
-            var f = _dbContext.Films.Find(id);
-
-            if (f == null) return;
-
-            _dbContext.Films.Remove(f);
-            _dbContext.SaveChanges();
+            return _dbSession.Set<T>();
         }
     }
 }

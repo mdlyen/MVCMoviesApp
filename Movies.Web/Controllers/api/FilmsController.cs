@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Movies.Web.DTO;
@@ -16,14 +10,14 @@ namespace Movies.Web.Controllers.api
 {
     public class FilmsController : ApiController
     {
-        private readonly IMovieRepository _repository = new MovieRepository();
-        private readonly DTOFactory _dtoFactory = new DTOFactory(); 
+        private readonly IDTOFactory _dtoFactory;
+        private readonly IMovieRepository _movieRepository;
 
-        // GET: api/v1/Films
-        [Route("~/api/v1/Films")]
-        public IEnumerable<FilmDTO> GetFilms()
+        public FilmsController()
         {
-            return _repository.GetAllFilmDTOs();
+            // Manual dependency injection for now...
+            _dtoFactory = new DTOFactory();
+            _movieRepository = new MovieRepository(new EntityDbSession(new MovieDbContext()), _dtoFactory);
         }
 
         // GET: api/v1/Films/5
@@ -31,13 +25,20 @@ namespace Movies.Web.Controllers.api
         [Route("~/api/v1/Films/{filmid:int}")]
         public IHttpActionResult GetFilm(int filmid)
         {
-            var film = _repository.FindById(filmid);
+            var film = _movieRepository.GetAll<Film>().FirstOrDefault(x => x.Id == filmid);
             if (film == null)
             {
                 return NotFound();
             }
 
             return Ok(_dtoFactory.Map(film));
+        }        
+        
+        // GET: api/v1/Films
+        [Route("~/api/v1/Films")]
+        public IEnumerable<FilmDTO> GetFilms()
+        {
+            return _movieRepository.GetAllFilms();
         }
     }
 }

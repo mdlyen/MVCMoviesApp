@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Movies.Web.Controllers.api;
-using Movies.Web.Services;
 
 namespace Movies.Web.Controllers
 {
