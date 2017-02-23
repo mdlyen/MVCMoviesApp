@@ -31,6 +31,11 @@ namespace Movies.Web.Services
             return returnVar;
         }
 
+        public FilmDTO GetFilmDTO(int filmid)
+        {
+            return _dtoFactory.Map(_dbSession.Set<Film>().Single(x => x.Id == filmid));
+        }
+
         public IEnumerable<T> GetAll<T>() where T:class
         {
             return _dbSession.Set<T>();

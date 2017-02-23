@@ -25,13 +25,13 @@ namespace Movies.Web.Controllers.api
         [Route("~/api/v1/Films/{filmid:int}")]
         public IHttpActionResult GetFilm(int filmid)
         {
-            var film = _movieRepository.GetAll<Film>().FirstOrDefault(x => x.Id == filmid);
+            var film = _movieRepository.GetFilmDTO(filmid);
             if (film == null)
             {
                 return NotFound();
             }
 
-            return Ok(_dtoFactory.Map(film));
+            return Ok(film);
         }        
         
         // GET: api/v1/Films

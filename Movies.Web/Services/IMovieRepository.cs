@@ -7,5 +7,6 @@ namespace Movies.Web.Services
     {
         IEnumerable<T> GetAll<T>() where T : class;
         IEnumerable<FilmDTO> GetAllFilms();
+        FilmDTO GetFilmDTO(int filmid);
     }
 }
