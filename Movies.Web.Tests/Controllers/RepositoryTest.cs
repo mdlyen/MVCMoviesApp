@@ -1,47 +1,52 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Movies.Web.DTO;
+using Movies.Web.Models;
 using Movies.Web.Services;
+using Movies.Web.Tests.Fakes;
+using NUnit.Framework;
 
 namespace Movies.Web.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class RepositoryTest
     {
-        [TestMethod]
+        private static Mock<IMovieRepository> _mockRespository;
+
+        [SetUp]
+        public void Init()
+        {
+            // Test of MOQ.  This isn't a great test however, since I'm only testing the MOQ and not any user code.
+            _mockRespository = new Mock<IMovieRepository>();
+            _mockRespository.Setup(x => x.GetAllFilms()).Returns(CreateFullTestList());
+            _mockRespository.Setup(x => x.GetFilmDTO(It.IsAny<int>())).Returns((int filmid) => PullSingleFilm(filmid));
+        }
+        
+        [Test]
         public void TestGetAllFilms()
         {
             // Arrange
-            var mockRespository = CreateMockRepository();
 
             // Act
-            var temp = mockRespository.Object.GetAllFilms();
+            var temp = _mockRespository.Object.GetAllFilms();
 
             // Assert
-            Assert.AreEqual(temp.Count(), CreateFullTestList().Count());
+            Assert.That(temp.Count() == CreateFullTestList().Count());
         }
 
-        private static Mock<IMovieRepository> CreateMockRepository()
-        {
-            var mockRespository = new Mock<IMovieRepository>();
-            mockRespository.Setup(x => x.GetAllFilms()).Returns(CreateFullTestList());
-            mockRespository.Setup(x => x.GetFilmDTO(It.IsAny<int>())).Returns(CreateSingleTestItem);
-            return mockRespository;
-        }
 
-        [TestMethod]
-        public void TestSingleFilm()
+        [TestCase(1)]
+        [TestCase(2)]
+        public void TestSingleFilm(int filmid)
         {
             // Arrange
-            var mockRespository = CreateMockRepository();
 
             // Act
-            var temp = mockRespository.Object.GetFilmDTO(1);
+            var temp = _mockRespository.Object.GetFilmDTO(filmid);
 
             // Assert
-            Assert.AreEqual(temp.Id, 1);
+            Assert.That(temp.Id == filmid);
         }
 
         private static IEnumerable<FilmDTO> CreateFullTestList()
@@ -69,15 +74,11 @@ namespace Movies.Web.Tests.Controllers
             return returnList;
         }
 
-        private static FilmDTO CreateSingleTestItem()
+        private static FilmDTO PullSingleFilm(int filmid)
         {
-            return new FilmDTO
-            {
-                Id = 1,
-                Director = "Director",
-                ReleaseYear = "2000",
-                Title = "Title"
-            };
+            var temp = CreateFullTestList();
+                
+            return temp.First(x => x.Id == filmid);
         }
     }
 }

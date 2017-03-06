@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Movies.Web.Controllers;
+using NUnit.Framework;
 
 namespace Movies.Web.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
         public void Index()
         {
             // Arrange
@@ -17,7 +17,7 @@ namespace Movies.Web.Tests.Controllers
             var result = controller.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.That(result != null);
         }
     }
 }
